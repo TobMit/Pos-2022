@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#Vytvorte  funkciu,  ktorá  vypíše  vizitku  o  používateľovi
+# (login,  meno,  priezvisko, domovský  adresár  a  interpreter  príkazov),
+# ktorého  login  je  zadaný  ako  vstupný parameter funkcie.
+
+visitka() {
+  echo "login: $(cut -d: -f1 /etc/passwd | grep  $1)"
+  echo "meno: $(cut -d: -f5 /etc/passwd | grep $1 | cut -d " " -f1)"
+  echo "priezvisko: (cut -d: -f5 /etc/passwd | grep $1 | cut -d " " -f2)"
+  echo "domovy adresar: $(cut -d: -f6 /etc/passwd | grep $1)"
+  echo "interpreter prikazov: $(cut -d: -f7 /etc/passwd | grep $1)"
+}
+
+visitka
