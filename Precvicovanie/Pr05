@@ -1,0 +1,8 @@
+#!/bin/bash
+#Vytvorte  skript,  ktorý  v  aktuálnom  adresári  vytvorí  skrytý  adresár  s  názvom „secret_uid“(namiesto uid použite
+# vaše používateľské identifikačné číslo). Nastavte mu v skripte práva tak, aby vlastník mohol tento adresár čítať
+# a spúšťať, zatiaľ čo skupina a všetci ostatní nemohli robiť nič.
+
+
+mkdir ".secret_$(id -u)"
+chmod 700 ".secret_$(id -u)"
