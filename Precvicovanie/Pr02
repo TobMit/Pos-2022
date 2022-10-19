@@ -1,0 +1,7 @@
+#!/bin/bash
+#Vypíšte prístupové práva ksvojmu domovskému adresáru.
+
+# -l dotatočné položky
+# -a vypíše aj skryté položky
+# -d namiesto vypisu ostatných položiek vypíše akuálny priečinok
+ls -l -a -d
