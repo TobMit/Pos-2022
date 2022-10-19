@@ -1,0 +1,4 @@
+#!/bin/bash
+
+#Prostredníctvom dlhého výpisu vypíšte obsah adresára, ktorý sa nachádza o 3 úrovne vyššie v súborovom systéme vzhľadom na aktuálny adresár spolu so skrytými súbormi.
+ls -la /
