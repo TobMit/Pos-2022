@@ -1,0 +1,33 @@
+#!/bin/bash
+
+#Pomocou jednoduchého skriptu vytvorte vdanom adresári očíslované adresáre, ktoré sa budú volať „Adresar A“,
+# „Adresar A+1“, „Adresar A+2“,..., „Adresar B“, kde AaBsú čísla zadané používateľom skriptu.
+# Ak používateľ nezadá tieto čísla ako argumenty skriptu, skript si ich vypýta od používateľa.
+
+#overenie či je parametr číslo $(echo $1 | tr d [0-9]) - ako to do ifu vráti akýkoľvek charakter tak sa to vyhodnocuje
+#ako true a tým pádom tato podmienka platí  že zadané nebolo čislo
+
+parameterTest() {
+    if [ $(echo $a | tr -d [0-9]) ] || [ $(echo $b | tr -d [0-9]) ]
+      then
+        echo "Zle zadane parametre"
+        read -p "Zadajte parameter a: " a
+        read -p "Zadajte parameter b: " b
+        parameterTest
+    fi
+}
+
+if [ $# -ge 2 ]
+then
+  a="$1"
+  b="$2"
+fi
+
+parameterTest
+
+while [ $a -le $b ]; do
+    mkdir "Adresar $a"
+    a=$(( $a + 1 ))
+done
+
+exit 0
