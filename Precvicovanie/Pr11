@@ -1,0 +1,8 @@
+#!/bin/bash
+
+#ytvorte skript, ktorý nájde v adresári /tmp súbory aktuálne prihláseného používateľaatie, ktoré sústaršie ako 14 dní,zmaže.
+
+# -mtime - staršie ako..
+find find /tmp/ -mtime +14 -user $USER -delete -print 2> /dev/null
+
+
