@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#Vytvorte skript, ktorý vypíše názvy súborov a adresárov v aktuálnom adresári, ktoré obsahujú 6 znakov a začínajú na "cv"
+
+ls | grep -e cv
+
+#keď chcem mať aby tam bolo buď to alebo to tak sa to dá spraviť
+ls | grep -E "c|p" # vypíše názvy ktoré obsahujú e alebo p
+
