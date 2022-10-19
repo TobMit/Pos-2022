@@ -1,0 +1,8 @@
+#!/bin/bash
+
+#Bez použitia príkazu cd vytvorte 5 do seba vnorených adresárov s názvami 1 až 5 anásledne ich aj zmažte.
+
+mkdir -p 1/2/3/4/5
+
+#zmazanie priečinkov
+rm -r 1
