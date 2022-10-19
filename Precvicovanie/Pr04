@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#Vytvorte vaktuálnom adresári skrytý adresár snázvom „secret“.
+
+#priečinky s botkou na začiatku sú neviditeľné
+mkdir .secret
