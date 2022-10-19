@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#Do textového súboru uložte všetky adresáre súborového systému, ku ktorým nemáte prístup.
+# / - aby ma to dalo na začiatok koreňového systému
+# . - slúži na vyhladávanie, kvázi ako dočasná $PATH a v tom priečinku sa vyhľadáva tak nejak som to pochopil
+# -readable - či máme právo na čítanie súborov.
+find / . ! -readable > someText.txt
