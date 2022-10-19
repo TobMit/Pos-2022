@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#Vadresári /etc nájdite všetky súbory,ktoré obsahujú logindaného používateľa,a určite,
+# koľkokrát sa daný login nachádza vkaždom z týchto súborov.
+
+find /etc -type f -print -exec grep -c $USER {} \;
