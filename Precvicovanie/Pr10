@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#Vytvorte skript, ktorý zmaže všetky adresáre (vrátane podadresárov)vdanom adresári. Skript nesmie zmazať súbory,
+# ktoré sa nachádzajú vdanom adresári.
+
+find . -type d -empty -delete
