@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#Vadresári  /home  vyhľadajte  všetky  súbory,  ktoré  patria  danému  používateľovi askopírujte ich do vopred zvoleného adresára.
+
+# {} by mali sa mali použiť najdené súbory a skopírovať sa do priečinku testovny
+# miesto toho cvika sa môže dať čokolvek iné
+find cviko03 -exec cp {} testovny/ \;
