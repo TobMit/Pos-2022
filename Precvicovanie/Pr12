@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#Vadresári /dev nájdite všetky súbory typu znakové zariadenie, ktorých vlastníkom je používateľ root.
+# Pri prehľadávaní adresárachoďte najviacojednu úroveň hlbšie.
+
+find /dev/ -maxdepth 1 -user root -type c
