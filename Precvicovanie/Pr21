@@ -1,0 +1,8 @@
+#!/bin/bash
+
+#Uložte do súboru „processes“informácie uname, PID, PPID, STIME a CMD o aktuálne bežiacich procesoch všetkých používateľov,
+# pričom dbajte na to, aby v uname nebol znak „+“. Následne uložte do súboru „proces_login“všetky abecedne zoradené loginy
+# používateľov zo súboru „processes“, pričom potlačte duplicity.
+
+ps axo user,pid,ppid,stime,cmd | tr "+" " " | uniq > test
+cat test | cut -d " " -f1 | sort -u > proces_login
