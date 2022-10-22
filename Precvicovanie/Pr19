@@ -1,0 +1,4 @@
+#!/bin/bash
+
+#Vytvorte očíslovaný abecedný zoznam všetkých používateľov systému a uložte ho do súboru.
+cat -n /etc/passwd | grep -e "home"| grep -e "/bin/" |  cut -d: -f5 | cat -n
