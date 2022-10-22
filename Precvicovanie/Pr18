@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#Vytvorte funkciu, ktorá pre login zadaný ako vstupný parameter vypíše rozdiel dĺžky zadaného loginu a loginu
+# aktuálneho používateľa. Výsledok porovnania pripíše do súboru „rozdiel“. V prípade, že sa funkcia spusti s prepínacom
+# „-v“, funkcia vypíše utriedený súbor „rozdiel“do konzoly.
+
+
+porovnanie() {
+   echo "$1 - $USER = $((${#1}-${#USER}))" >> rozdiel
+}
+porovnanie $1
+
+if [[ $2 == "-v" ]]; then
+    cat rozdiel | sort;
+fi
+
+exit 0
