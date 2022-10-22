@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Do riadku vypíšte loginy všetkých prihlásených požívateľov, ktorých login začína na zvolené písmeno.
+
+# ak sa ma niečo začíntať na nejaké písmeno tak sa pred to musí dať ^
+users | tr " " "\n" | grep ^$1 | tr "\n" " "
