@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#Vytvorte funkciu, ktor       pre login zadan       ako vstupn       parameter funkcie vyp            e po   ^met aktu      lne spusten      ch procesov
+# dan      ho pou            vate      a spolu s jeho menom a priezviskom.
+
+let pocet=$(ps --user $1 | wc -l )
+#odcitavam jeden riadok pretoze prvy riadok je hlavicka a ta nie je proces
+let pocet-=1
+echo $pocet
