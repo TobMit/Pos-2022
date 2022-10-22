@@ -1,0 +1,8 @@
+#!/bin/bash
+
+#Vytvorte funkciu, ktorá vypíše zo súboru /etc/passwd loginy používateľovzdaného rozsahu. Funkcia bude mať 2parametre,
+# ktoré predstavujú čísla prvého aposledného záznamu. Napr. argumenty 50 80 znamenajú, že zo súboru /etc/passwd sa
+# vypíšuloginy nachádzajúce sa v50-tomaž 80-tomzázname.
+
+#už len spraviť funkcieu.
+cut /etc/passwd -d: -f1 | cat -n  | head -80 | tail -31
