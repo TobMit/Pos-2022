@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Vypíšte loginy všetkých prihlásených používateľov, ktorých login obsahuje číslice.
+users | tr " " "\n" | grep [0-9]
