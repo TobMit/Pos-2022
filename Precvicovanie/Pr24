@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Vytvorte skript, ktorý používateľa požiada ozadanie celého čísla. Ak je zadané číslo zintervalu  (-1000, 1000),
+# tak ho následne vypíše vtvare, ktorý zodpovedá sedem-segmentovému displeju. Ak zadané číslo nie je zuvedeného rozsahu,
+# tak skript nič nevypíše.
+
+echo -e "test\ntest"
