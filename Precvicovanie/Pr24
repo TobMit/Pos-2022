@@ -4,4 +4,5 @@
 # tak ho následne vypíše vtvare, ktorý zodpovedá sedem-segmentovému displeju. Ak zadané číslo nie je zuvedeného rozsahu,
 # tak skript nič nevypíše.
 
+# -e /n dá na nový riadok
 echo -e "test\ntest"
