@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Vypíšte  loginy  všetkých  prihlásených  používateľov,  pričom  znich  odstráňte  čísla, zoraďte ich abecedne a potlačte duplicity.
+
+users | tr " " "\n" | tr [0-9] " " | sort -u
