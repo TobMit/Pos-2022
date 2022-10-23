@@ -4,5 +4,6 @@
 # ktoré predstavujú čísla prvého aposledného záznamu. Napr. argumenty 50 80 znamenajú, že zo súboru /etc/passwd sa
 # vypíšuloginy nachádzajúce sa v50-tomaž 80-tomzázname.
 
-#už len spraviť funkcieu.
-cut /etc/passwd -d: -f1 | cat -n  | head -80 | tail -31
+let koniec=$1-$2+1
+
+cut /etc/passwd -d: -f1 | cat -n  | head -$1 | tail -31
