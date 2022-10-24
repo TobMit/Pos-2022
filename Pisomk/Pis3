@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#2. [2 body] Vytvorte skript, ktory vypise ocislovany zoznam vsetkych spustitelnych suborov v aktualnom adre>
+# nasledne bude cakat na vstup od pouzivatela, ktory bude predstavovat poradove cislo spustitelneho suboru.
+# Po jeho zadani sa spusti prislusny spustitelny subor.
+
+#find -executable | cat -n
+
+
+array=()
+while IFS=  read -r -d $'\0'; do
+    array+=("$REPLY")
+done < <(find -type f -executable  -print0)
+
+let cislovany=0
+for file in "${array[@]}"; do
+    echo "$cislovany. $file"
+    let cislovany+=1
+done
+
+read -p "Ktory sktript chcete spustit? " spustenie
+
+echo $(${array[$spustenie]})

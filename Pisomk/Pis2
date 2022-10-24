@@ -1,0 +1,5 @@
+#!/bin/bash
+
+#2. [1 bod] Vypiste loginy vsetkych prihlasenych pouzivatelov, ktorych login obsahuje cislice.
+
+users |tr " " "\n" | grep [0-9]

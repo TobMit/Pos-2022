@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#1. [1 bod] Vytvorte skript, ktory v adresari, ktory sa nach<C3><A1>dza o 4 urovne vyssie, ako sa prave nachadzate,
+# vytvori skryty adresar s n<C3><A1>zvom "Adresar 559076" a nastavte mu prava tak, aby:
+#-> mal vlastnik vsetky prava,
+#-> skupina, do ktorej vlastnik patri, mohla iba vypisat jeho obsah,
+#-> vsetci ostatni pouzivatelia sa mohli don iba prepnut.
+
+
+mkdir "../../../../.Adresar\ 559076"
+chmod 744 ../../../../.Adresar 559076

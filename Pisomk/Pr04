@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#4. [3 body] Vytvorte skript, ktory vypise vysledok 6 hodov kockou (maximalnu hodnotu a jednotlive hodnoty hodov).
+# Ak je maximalna hodnota vacsia alebo rovna ako 5, vypise informaciu "Nice!". Ak je pocet padnuti hodnot 1 a 2 rovnaky
+# a navyse cislo 3 padlo presne 3-krat, vypise informaciu "Gratulujem! Splnila sa tajna podmienka!". Na konci vypiste
+# ucelenu informaciu o pocte padnuti jednotlivych hodnot kocky zoradenych vzostupne.
+
+array=()
+let max=0
+for i in 1 2 3 4 5 6 ; do
+    let hod=1+$RANDOM%6
+    if [ $max -le  $hod ]; then
+        let max=hod
+    fi
+    if [ $max -ge "6" ]; then
+        echo "nice"
+    fi
+    echo "$hod"
+done
+
+echo "max: $max"

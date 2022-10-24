@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# 3. [3 body] Vytvorte funkciu, ktora pre mesiac, den a rok zadane ako vstupny parameter funkcie vypise informaciu,
+# ci je dany datum platny alebo nie. Pri hodnote dna je potrebne zabezpecit, aby bola v poriadku na zaklade mesiaca
+# (napriklad od 1 az 30 pre april). Pri roku nie je potrebne riesit jeho platnost. Tiez mozete predpokladat, ze zadane
+# hodnoty budu vzdy cisla.
+
+validuj() {
+  # $1 mesiac
+  # $2 den
+  # $3 rok
+  if [ "$1" -le "0" ] || [ "$1" -ge "13" ]; then
+      echo "invalid"
+      exit 2
+  fi
+
+  #skontrolujem dzku dna
+  if [ "$2" -le "0" ] || [ "$2" -ge "32" ]; then
+      echo "invalid"
+      exit 2
+  fi
+  if [ "$1" == "4" ] || [ "$1" == "6" ]  || [ "$1" == "9" ] || [ "$1" == "11" ]  && [ "$2" -ge "31" ]; then
+    echo "Invalid"
+    exit 2
+  fi
+
+  if [ "$1" == "2" ] ; then
+    if [ $(($3 % 4)) == "0" ]; then
+    if [ $(($3 % 100)) == "0" ] && [  $(($3 % 400)) == "0" ]; then
+      #je priestupny
+      if [ "$2" -ge "30" ]; then
+          echo "Invalid"
+          exit 2
+      fi
+      return;
+    elif [ $(($3 % 100)) == "0" ]; then
+      #nie je priestupny
+       if [ "$2" -ge "29" ]; then
+          echo "Invalid"
+          exit 2
+      fi
+    fi
+    #je priestupny
+    if [ "$2" -ge "30" ]; then
+          echo "Invalid"
+          exit 2
+      fi
+  else
+    #nie je pristupny
+    if [ "$2" -ge "29" ]; then
+          echo "Invalid"
+          exit 2
+      fi
+
+  fi
+
+  fi
+
+  echo "valid"
+}
+
+validuj $1 $2 $3
