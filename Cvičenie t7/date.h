@@ -1,6 +1,4 @@
-//
-// Created by Tobias on 01/11/2022.
-//
+#include <stdio.h>
 
 #ifndef POS_2022_DATE_H
 #define POS_2022_DATE_H
@@ -14,6 +12,7 @@ typedef struct date {
 
 //int date_compare(struct date dateA, struct date dateB);
 int date_compare(DATE dateA, DATE dateB);
+void date_print(DATE dateA);
 
 
 #endif //POS_2022_DATE_H

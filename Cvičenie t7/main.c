@@ -1,10 +1,25 @@
-//
-// Created by Tobias on 01/11/2022.
-//
 
 #include "stdio.h"
-#include "string.h"
-int main() {
+#include "date.h"
+#include "array_list.h"
+#include "stdlib.h"
+
+void test_array_list(void) { // keď neočakávame žiadne parametre tak treba tam dať void
+    ARRAY_LIST list;
+    array_list_init(&list);
+
+    for (int i = 0; i < 10; ++i) {
+        DATE  date = {2022, 1 + rand() % 12, 1 + rand() % 28};
+
+        array_list_add(&list, &date);
+        printf("%d\n", i);
+    }
+    array_list_print(&list);
+    array_list_dispose(&list);
+}
+
+int main(void) {
+    /*
     char name[30+1]; // posledný znak je určite null
     int year;
 
@@ -17,5 +32,7 @@ int main() {
     scanf("%d", &year);
 
     printf("Ahoj %s, mas %d rokov.\n" , name, 2022-year);
+    */
+    test_array_list();
     return 0;
 }

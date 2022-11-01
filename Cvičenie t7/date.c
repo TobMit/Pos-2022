@@ -5,7 +5,7 @@
 
 int date_compare(DATE dateA, DATE dateB) {
     if (dateA.year < dateB.year ||
-        dateA.year == dateB.year && dateA < dateB.month ||
+        dateA.year == dateB.year && dateA.month < dateB.month ||
         dateA.year == dateB.year && dateA.month == dateB.month && dateA.day < dateB.day) {
         return -1;
     } else if (dateA.year == dateB.year && dateA.month == dateB.month && dateA.day == dateB.day) {
@@ -13,4 +13,8 @@ int date_compare(DATE dateA, DATE dateB) {
     } else {
         return 1;
     }
+}
+
+void date_print(DATE dateA) {
+    printf("%d.%d.%d", dateA.day, dateA.month, dateA.year);
 }
