@@ -3,6 +3,33 @@ core() {
   while [ $pokus -lt $4 ]; do
   let pokus=pokus+1
   echo "Pokus č. $pokus"
+  let prvaCislica=0;
+  let druhaCislica=0;
+  let tretiaCislica=0;
+  let stvrtaCislica=0;
+  read -n1 -e -p "$nick zadajte prvú číslicu: " prvaCislica
+  read -n1 -e -p "$nick zadajte druhú číslicu: " druhaCislica
+  read -n1 -e -p "$nick zadajte tretiu číslicu: " tretiaCislica
+  read -n1 -e -p "$nick zadajte štvrtu číslicu: " stvrtaCislica
+  echo ""
+  echo ""
+  echo "Zadana postupnosť $prvaCislica $druhaCislica $tretiaCislica $stvrtaCislica"
+  echo "Zadana postupnosť ${#prvaCislica} ${#druhaCislica} ${#tretiaCislica} ${#stvrtaCislica}"
+  if [ ${#prvaCislica} -eq 0 ]; then
+      let prvaCislica=0;
+  fi
+  if [ ${#druhaCislica} -eq 0 ]; then
+      let druhaCislica=0;
+  fi
+  if [ ${#tretiaCislica} -eq 0 ]; then
+      let tretiaCislica=0;
+  fi
+  if [ ${#stvrtaCislica} -eq 0 ]; then
+      let stvrtaCislica=0;
+  fi
+
+  echo "Zadana postupnosť $prvaCislica $druhaCislica $tretiaCislica $stvrtaCislica"
+
   echo "$1 $2 $3 $4"
   done
 }
@@ -22,26 +49,27 @@ echo "1. easy - 30 pokusov na uhádnutie"
 echo "2. normal - 15 pokusov  na uhádnutie"
 echo "3. hard - 5 pokusov na uhádnutie"
 echo ""
-read obtiaznosti
+let obtiaznosti=2; #pokiaľ človek nič nezadal, tak sa zvolí automaticky stredná obtiažnosť
+read -t 5 obtiaznosti
 
 let pokus=0;
 
 case $obtiaznosti in
   "e" | "easy" | "1" | "Easy" | "E" | "EASY")
   echo "Zvolená obtiaťnosť easy!"
-  core $((1 + RANDOM % 10)) $((1+RANDOM%10)) $((1+RANDOM%10)) 30;
+  core $((RANDOM % 10)) $((RANDOM%10)) $((RANDOM%10)) 30;
   ;;
   "n" | "normal" | "2" | "Normal" | "N" | "NORMAL")
   echo "Zvolená obtiaťnosť normal!"
-  core $((1 + RANDOM % 10)) $((1+RANDOM%10)) $((1+RANDOM%10)) 15;
+  core $((RANDOM % 10)) $((RANDOM%10)) $((RANDOM%10)) 15;
   ;;
   "h" | "hard" | "3" | "Hard" | "H" | "HARD")
   echo "Zvolená obtiaťnosť hard!"
-  core $((1 + RANDOM % 10)) $((1+RANDOM%10)) $((1+RANDOM%10)) 5;
+  core $((RANDOM % 10)) $((RANDOM%10)) $((RANDOM%10)) 5;
   ;;
   *)
     echo "Nesprávna volba, volím normál "
-    core $((1 + RANDOM % 10)) $((1+RANDOM%10)) $((1+RANDOM%10)) 15;
+    core $((RANDOM % 10)) $((RANDOM%10)) $((RANDOM%10)) 15;
   ;;
 esac
 echo ""
