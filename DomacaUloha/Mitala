@@ -26,18 +26,39 @@ core() {
 
     echo "Zadana postupnosť $prvaCislica $druhaCislica $tretiaCislica $stvrtaCislica"
     let trafene=0;
+    let mensie=0;
+    let vecsie=0;
 
     if [ $prvaCislica -eq $1 ]; then
         let trafene=trafene+1;
+    elif [ $1 -gt $prvaCislica ]; then
+        let vecsie=vecsie+1
+    else
+        let mensie=mensie+1
     fi
+
     if [ $druhaCislica -eq $2 ]; then
         let trafene=trafene+1;
+    elif [ $2 -gt $druhaCislica ]; then
+        let vecsie=vecsie+1
+    else
+        let mensie=mensie+1
     fi
+
     if [ $tretiaCislica -eq $3 ]; then
         let trafene=trafene+1;
+    elif [ $3 -gt $tretiaCislica ]; then
+        let vecsie=vecsie+1
+    else
+        let mensie=mensie+1
     fi
+
     if [ $stvrtaCislica -eq $4 ]; then
         let trafene=trafene+1;
+    elif [ $4 -gt $stvrtaCislica ]; then
+        let vecsie=vecsie+1
+    else
+        let mensie=mensie+1
     fi
 
     if [ $trafene -eq 4 ]; then
@@ -52,12 +73,15 @@ core() {
 
     echo "$nick zlý pokus"
     echo "počet trafených cifier: $trafene"
-    echo ""
+    echo "počet cifier, ktorých hodnota je menšia ako tipovaná: $mensie"
+    echo "počet cifier, ktorých hodnota je väčšia ako tipovaná: $vecsie"
 
     echo ""
     echo ""
-    echo "$1 $2 $3 $4"
+    #echo "$1 $2 $3 $4"
+
   done
+
   echo ""
   echo ""
   echo "øGAME OVERø - bomba vybuchla!"
