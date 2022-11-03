@@ -58,7 +58,16 @@ core() {
     echo ""
     echo "$1 $2 $3 $4"
   done
-
+  echo ""
+  echo ""
+  echo "øGAME OVERø - bomba vybuchla!"
+  echo "Hladaná kombinácia: $1 $2 $3 $4"
+  if [ "$6" = "EASY" ]; then
+      echo "loser $6 too hard? Try tetris instead."
+  else
+      echo "loser $6 too hard? Try easy instead."
+  fi
+  exit 2;
 
 }
 
