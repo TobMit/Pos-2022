@@ -1,0 +1,41 @@
+#!/bin/bash
+easy() {
+    echo Zvolená obtiaťnosť easy!
+}
+normal() {
+    echo Zvolená obtiaťnosť normal!
+}
+hard() {
+    echo Zvolená obtiaťnosť hard!
+}
+
+
+echo "*** Vitaj v hre zneškodni bombu ***"
+echo ""
+echo "Vašou úlohou bude zneškodniť bombu zadaním 4 miesteho kódu."
+echo "Jednotlive číslice sa zadávajú samostane."
+echo "Po zadaní 4 číslic sa vyhodnotí Váš pokus."
+echo "Zobrazí sa Vám informácia o tom, koľko číslic Ste uhádli a"
+echo "koľko číslic má vyššiu alebo nižšiu hodnotu ako Váš tip."
+echo ""
+read -p "Zadajte svoj nick: " nick;
+echo "$nick zadajte obtiažnosť:"
+echo "1. easy - 30 pokusov na uhádnutie"
+echo "2. normal - 15 pokusov  na uhádnutie"
+echo "3. hard - 5 pokusov na uhádnutie"
+echo ""
+read obtiaznosti
+
+case $obtiaznosti in
+  "e" | "easy" | "1" | "Easy" | "E" | "EASY")
+  easy;
+  ;;
+  "n" | "normal" | "2" | "Normal" | "N" | "NORMAL")
+  normal;
+  ;;
+  "h" | "hard" | "3" | "Hard" | "H" | "HARD")
+  hard;
+  ;;
+esac
+echo ""
+exit 0;
