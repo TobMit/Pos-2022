@@ -1,6 +1,10 @@
 #!/bin/bash
 core() {
-  echo "$1 $2 $3"
+  while [ $pokus -lt $4 ]; do
+  let pokus=pokus+1
+  echo "Pokus č. $pokus"
+  echo "$1 $2 $3 $4"
+  done
 }
 
 
@@ -20,23 +24,24 @@ echo "3. hard - 5 pokusov na uhádnutie"
 echo ""
 read obtiaznosti
 
+let pokus=0;
 
 case $obtiaznosti in
   "e" | "easy" | "1" | "Easy" | "E" | "EASY")
   echo "Zvolená obtiaťnosť easy!"
-  core 1+RANDOm%10 1+RANDOm%10 1+RANDOm%10;
+  core $((1 + RANDOM % 10)) $((1+RANDOM%10)) $((1+RANDOM%10)) 30;
   ;;
   "n" | "normal" | "2" | "Normal" | "N" | "NORMAL")
   echo "Zvolená obtiaťnosť normal!"
-  core 1+RANDOm%10 1+RANDOm%10 1+RANDOm%10;
+  core $((1 + RANDOM % 10)) $((1+RANDOM%10)) $((1+RANDOM%10)) 15;
   ;;
   "h" | "hard" | "3" | "Hard" | "H" | "HARD")
   echo "Zvolená obtiaťnosť hard!"
-  core 1+RANDOm%10 1+RANDOm%10 1+RANDOm%10;
+  core $((1 + RANDOM % 10)) $((1+RANDOM%10)) $((1+RANDOM%10)) 5;
   ;;
   *)
     echo "Nesprávna volba, volím normál "
-    core $((1 + RANDOM % 10)) $((1+RANDOM%10)) $((1+RANDOMr%10));
+    core $((1 + RANDOM % 10)) $((1+RANDOM%10)) $((1+RANDOM%10)) 15;
   ;;
 esac
 echo ""
