@@ -11,10 +11,6 @@ core() {
   read -n1 -e -p "$nick zadajte druhú číslicu: " druhaCislica
   read -n1 -e -p "$nick zadajte tretiu číslicu: " tretiaCislica
   read -n1 -e -p "$nick zadajte štvrtu číslicu: " stvrtaCislica
-  echo ""
-  echo ""
-  echo "Zadana postupnosť $prvaCislica $druhaCislica $tretiaCislica $stvrtaCislica"
-  echo "Zadana postupnosť ${#prvaCislica} ${#druhaCislica} ${#tretiaCislica} ${#stvrtaCislica}"
   if [ ${#prvaCislica} -eq 0 ]; then
       let prvaCislica=0;
   fi
@@ -30,7 +26,22 @@ core() {
 
   echo "Zadana postupnosť $prvaCislica $druhaCislica $tretiaCislica $stvrtaCislica"
 
-  echo "$1 $2 $3 $4"
+  if [ ${#prvaCislica} -eq $1 ]; then
+      let prvaCislica=0;
+  fi
+  if [ ${#druhaCislica} -eq $2 ]; then
+      let druhaCislica=0;
+  fi
+  if [ ${#tretiaCislica} -eq 0 ]; then
+      let tretiaCislica=0;
+  fi
+  if [ ${#stvrtaCislica} -eq 0 ]; then
+      let stvrtaCislica=0;
+  fi
+
+  echo ""
+  echo ""
+  #echo "$1 $2 $3 $4"
   done
 }
 
@@ -57,19 +68,19 @@ let pokus=0;
 case $obtiaznosti in
   "e" | "easy" | "1" | "Easy" | "E" | "EASY")
   echo "Zvolená obtiaťnosť easy!"
-  core $((RANDOM % 10)) $((RANDOM%10)) $((RANDOM%10)) 30;
+  core $((RANDOM % 10)) $((RANDOM%10)) $((RANDOM%10)) $((RANDOM%10)) 30;
   ;;
   "n" | "normal" | "2" | "Normal" | "N" | "NORMAL")
   echo "Zvolená obtiaťnosť normal!"
-  core $((RANDOM % 10)) $((RANDOM%10)) $((RANDOM%10)) 15;
+  core $((RANDOM % 10)) $((RANDOM%10)) $((RANDOM%10)) $((RANDOM%10)) 15;
   ;;
   "h" | "hard" | "3" | "Hard" | "H" | "HARD")
   echo "Zvolená obtiaťnosť hard!"
-  core $((RANDOM % 10)) $((RANDOM%10)) $((RANDOM%10)) 5;
+  core $((RANDOM % 10)) $((RANDOM%10)) $((RANDOM%10)) $((RANDOM%10)) 5;
   ;;
   *)
     echo "Nesprávna volba, volím normál "
-    core $((RANDOM % 10)) $((RANDOM%10)) $((RANDOM%10)) 15;
+    core $((RANDOM % 10)) $((RANDOM%10)) $((RANDOM%10)) $((RANDOM%10)) 15;
   ;;
 esac
 echo ""
