@@ -1,12 +1,6 @@
 #!/bin/bash
-easy() {
-    echo Zvolená obtiaťnosť easy!
-}
-normal() {
-    echo Zvolená obtiaťnosť normal!
-}
-hard() {
-    echo Zvolená obtiaťnosť hard!
+core() {
+  echo "$1 $2 $3"
 }
 
 
@@ -26,15 +20,23 @@ echo "3. hard - 5 pokusov na uhádnutie"
 echo ""
 read obtiaznosti
 
+
 case $obtiaznosti in
   "e" | "easy" | "1" | "Easy" | "E" | "EASY")
-  easy;
+  echo "Zvolená obtiaťnosť easy!"
+  core 1+RANDOm%10 1+RANDOm%10 1+RANDOm%10;
   ;;
   "n" | "normal" | "2" | "Normal" | "N" | "NORMAL")
-  normal;
+  echo "Zvolená obtiaťnosť normal!"
+  core 1+RANDOm%10 1+RANDOm%10 1+RANDOm%10;
   ;;
   "h" | "hard" | "3" | "Hard" | "H" | "HARD")
-  hard;
+  echo "Zvolená obtiaťnosť hard!"
+  core 1+RANDOm%10 1+RANDOm%10 1+RANDOm%10;
+  ;;
+  *)
+    echo "Nesprávna volba, volím normál "
+    core $((1 + RANDOM % 10)) $((1+RANDOM%10)) $((1+RANDOMr%10));
   ;;
 esac
 echo ""
