@@ -66,8 +66,8 @@ core() {
         echo ""
         echo "<<<< GRATUÁLCIA >>>>"
         echo "Bomba úspešne odistená na $pokus pokusov!"
-        echo "Hladaná kombinácia: $1 $2 $3 $4"
-        echo "$nick ON $6! I SALUTE YOUD"
+        echo "Hľadaná kombinácia: $1 $2 $3 $4"
+        echo "$nick ON $6! I SALUTE YOU"
         exit 0;
     fi
 
@@ -96,9 +96,9 @@ core() {
 }
 
 
-echo "*** Vitaj v hre zneškodni bombu ***"
+echo "*** Vitajte v hre zneškodni bombu ***"
 echo ""
-echo "Vašou úlohou bude zneškodniť bombu zadaním 4 miesteho kódu."
+echo "Vašou úlohou bude zneškodniť bombu zadaním 4-miesteho kódu."
 echo "Jednotlive číslice sa zadávajú samostane."
 echo "Po zadaní 4 číslic sa vyhodnotí Váš pokus."
 echo "Zobrazí sa Vám informácia o tom, koľko číslic Ste uhádli a"
