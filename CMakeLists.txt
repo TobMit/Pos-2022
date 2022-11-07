@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.18)
-project(PoS_2022 C)
+project(PoS_2022 CXX)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 11)
 
 add_executable(PoS_2022
         "Cvičenie t7/main.c"
@@ -12,3 +12,6 @@ add_executable(PoS_2022
 
 add_executable(Cvicenie_T08_01
         "Cvičenie t8/Uloha 1.c")
+
+add_executable(Cvicenie_T08_02
+        "Cvičenie t8/Uloha 2.cpp")
