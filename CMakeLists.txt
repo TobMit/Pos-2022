@@ -9,3 +9,6 @@ add_executable(PoS_2022
          "Cvičenie t7/date.h"
          "Cvičenie t7/array_list.c"
          "Cvičenie t7/array_list.h")
+
+add_executable(Cvicenie_T08
+        "Cvičenie t8/Uloha 1.c")
