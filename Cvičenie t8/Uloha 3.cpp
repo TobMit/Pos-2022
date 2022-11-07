@@ -2,7 +2,10 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <cstdio>
+#include <stdlib.h>
+
 int main(int argc, char * argv[]) {
+    printf("Hodnota premennej USER je: %s\n", getenv("USER"));
     printf("Vystvaram potomka, som %d\n", getpid());
     pid_t ret = fork(); // vytvorí child proces ako duplicitu aktuálneho procesu
     // keď poutžívame fork a pokiaľ nepočkáme z predka na potomoka, mohol by vzniknúť zoombie process
