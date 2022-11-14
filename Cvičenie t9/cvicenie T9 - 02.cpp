@@ -8,7 +8,11 @@ using namespace std;
 typedef struct spolData {
     int pocet;
     char * poleZnakov;
+    int velkostBuffera;
+    int obsadenie;
     pthread_mutex_t *mutexGS;
+    pthread_cond_t *generuj;
+    pthread_cond_t *sifruj;
     char min;
     char max;
 } SPOL;
@@ -30,7 +34,11 @@ void * generujVelkePismena(void * data) {
     for (int i = 0; i < dataG->data->pocet; ++i) {
         znak = 'A' +  rand() % (dataG->data->min - dataG->data->max + 1); // to plus 1 tam musí byť aby nám to generovalo aj Z
         pthread_mutex_lock(dataG->data->mutexGS); // krytická sekcia musi byť čo najmenšia aby nezabíjala paralelizmus
-        dataG->data->poleZnakov[i] = znak;
+        if (dataG->data->obsadenie >= dataG->data->velkostBuffera) {
+            pthread_cond_wait(dataG->data->generuj,dataG->data->mutexGS); // čakám kým nepríde správa na generuj
+        }
+        dataG->data->poleZnakov[dataG->data->obsadenie++] = znak;
+        pthread_cond_signal(dataG->data->sifruj);
         pthread_mutex_unlock(dataG->data->mutexGS); // krytická sekcia musi byť čo najmenšia aby nezabíjala paralelizmus
         cout << i << ". znak je " << znak << endl;
     }
@@ -47,9 +55,13 @@ void * sifrujVelkePismena(void * data) {
     cout << "Vlakno sifrujúce znaky začína činnosť" << endl;
     for (int i = 0; i < dataS->data->pocet; ++i) {
         pthread_mutex_lock(dataS->data->mutexGS);
-        znak = dataS->data->poleZnakov[i];
+        if (dataS->data->obsadenie <= 0) {
+            pthread_cond_wait(dataS->data->sifruj,dataS->data->mutexGS); // čakám kým nepríde správa na generuj
+        }
+        znak = dataS->data->poleZnakov[dataS->data->obsadenie--];
+        pthread_cond_signal(dataS->data->generuj);
         pthread_mutex_unlock(dataS->data->mutexGS);
-        cout << i << ". znak je " << znak << endl;
+        cout << i << ". znak je po sifrovani " << znak << endl;
     }
 
 
@@ -61,14 +73,19 @@ void * sifrujVelkePismena(void * data) {
 int main(int argc, char * argv[]) {
     srand(time(NULL));
     int pocet = 10;
+    const int buffPocet = 5;
     //char buffer[pocet]; //statické generovanie dát
+
+    pthread_cond_t generuj, sifruj = PTHREAD_COND_INITIALIZER; // cez makro inicializovane
+    pthread_cond_init(&generuj, NULL);
 
     pthread_mutex_t  mutGS;
     pthread_mutex_init(&mutGS, NULL); // keď som da init tak na konci musím dať destroy
 
-    char * pole = static_cast<char *>( malloc(pocet*sizeof(char)));   // na koniec treba dať free
+    //char * pole = static_cast<char *>( malloc(pocet*sizeof(char)));   // na koniec treba dať free
+    char * buffer = static_cast<char *>( malloc(buffPocet*sizeof(char)));   // vytvárame buffer
 
-    SPOL spData = {pocet, pole, &mutGS,'A', 'Z' };
+    SPOL spData = {pocet, buffer, buffPocet, 0,&mutGS, &generuj, &sifruj,'A', 'Z' };
     GEN genData = {&spData};
 
     SIF sifData;
@@ -93,7 +110,9 @@ int main(int argc, char * argv[]) {
     pthread_join(vlaknoS, NULL);
     cout << "Hlavne vlakno konči činnosť" << endl;
     pthread_mutex_destroy(&mutGS);
-    free(pole);
+    pthread_cond_destroy(&sifruj);
+    pthread_cond_destroy(&generuj);
+    free(buffer);
     return 0;
 }
 
