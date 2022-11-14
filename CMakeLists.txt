@@ -23,3 +23,8 @@ add_executable(Cvicenie_T09_01
         "Cvičenie t9/cvicenie T9 - 01.cpp")
 
 target_link_libraries(Cvicenie_T09_01 pthread)
+
+add_executable(Cvicenie_T09_02
+        "Cvičenie t9/cvicenie T9 - 02.cpp")
+
+target_link_libraries(Cvicenie_T09_02 pthread)
