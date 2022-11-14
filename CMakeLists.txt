@@ -18,3 +18,6 @@ add_executable(Cvicenie_T08_02
 
 add_executable(Cvicenie_T08_03
         "Cvičenie t8/Uloha 3.cpp")
+
+add_executable(Cvicenie_T09_01
+        "Cvičenie t9/cvicenie T9 - 01.cpp")
