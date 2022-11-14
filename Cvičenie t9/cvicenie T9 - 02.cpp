@@ -8,6 +8,7 @@ using namespace std;
 typedef struct spolData {
     int pocet;
     char * poleZnakov;
+    pthread_mutex_t *mutexGS;
     char min;
     char max;
 } SPOL;
@@ -28,7 +29,9 @@ void * generujVelkePismena(void * data) {
     cout << "Vlakno generujúce znaky začína činnosť" << endl;
     for (int i = 0; i < dataG->data->pocet; ++i) {
         znak = 'A' +  rand() % (dataG->data->min - dataG->data->max + 1); // to plus 1 tam musí byť aby nám to generovalo aj Z
+        pthread_mutex_lock(dataG->data->mutexGS); // krytická sekcia musi byť čo najmenšia aby nezabíjala paralelizmus
         dataG->data->poleZnakov[i] = znak;
+        pthread_mutex_unlock(dataG->data->mutexGS); // krytická sekcia musi byť čo najmenšia aby nezabíjala paralelizmus
         cout << i << ". znak je " << znak << endl;
     }
 
@@ -43,7 +46,9 @@ void * sifrujVelkePismena(void * data) {
     char znak = 'a';
     cout << "Vlakno sifrujúce znaky začína činnosť" << endl;
     for (int i = 0; i < dataS->data->pocet; ++i) {
+        pthread_mutex_lock(dataS->data->mutexGS);
         znak = dataS->data->poleZnakov[i];
+        pthread_mutex_unlock(dataS->data->mutexGS);
         cout << i << ". znak je " << znak << endl;
     }
 
@@ -58,9 +63,12 @@ int main(int argc, char * argv[]) {
     int pocet = 10;
     //char buffer[pocet]; //statické generovanie dát
 
+    pthread_mutex_t  mutGS;
+    pthread_mutex_init(&mutGS, NULL); // keď som da init tak na konci musím dať destroy
+
     char * pole = static_cast<char *>( malloc(pocet*sizeof(char)));   // na koniec treba dať free
 
-    SPOL spData = {pocet, pole, 'A', 'Z' };
+    SPOL spData = {pocet, pole, &mutGS,'A', 'Z' };
     GEN genData = {&spData};
 
     SIF sifData;
@@ -84,6 +92,7 @@ int main(int argc, char * argv[]) {
     pthread_join(vlaknoG, NULL);
     pthread_join(vlaknoS, NULL);
     cout << "Hlavne vlakno konči činnosť" << endl;
+    pthread_mutex_destroy(&mutGS);
     free(pole);
     return 0;
 }
