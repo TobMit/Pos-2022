@@ -6,9 +6,9 @@ using namespace std;
 
 //takto musí byť deklarovaná premenná
 void * generujVelkePismena(void * data) {
+    int pocet = *(int *)data; // toto musí byť keď chcem referovať na parametre
     char znak = 'a';
-    srand(time(NULL));
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < pocet; ++i) {
         znak = 'A' +  rand() % ('Z' - 'A' + 1); // to plus 1 tam musí byť aby nám to generovalo aj Z
         cout << i << ". znak je " << znak << endl;
     }
@@ -20,8 +20,10 @@ void * generujVelkePismena(void * data) {
 }
 
 int main(int argc, char * argv[]) {
+    srand(time(NULL));
+    int pocet = 10;
     pthread_t vlakno; // vyrobil som si premmenu pre vlakno
-    pthread_create(&vlakno, NULL, generujVelkePismena, NULL); // pozor je tam smerník na vlákno
+    pthread_create(&vlakno, NULL, generujVelkePismena, (void *)&pocet); // pozor je tam smerník na vlákno, musím to pretipovať na void *
     // toto vlákno sa mohle vytvoriť v tomto bode ale nemuselo, nie je to garantované, závisí od systému
 
     for (int i = 0; i < 5; ++i) {// toto bude zobrazovať hlavné vlákno
