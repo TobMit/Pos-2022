@@ -1,13 +1,14 @@
 #include <cstdio>
 #include <stdlib.h>
 #include <pthread.h>
+#include <unistd.h>
 
 typedef enum huba {
-    BEDLA = 1, DUBAK = 2, KOZAK = 3, MUCHOTRAVKA = 4
+    BEDLA, DUBAK, KOZAK, MUCHOTRAVKA
 } HUBA ;
 
 typedef struct SpolData {
-    int * pult;
+    HUBA * pult;
     int maxPult;
     int aktualPult;
     pthread_mutex_t * mut;
@@ -23,7 +24,7 @@ typedef struct hubar {
 } HUBAR;
 
 typedef struct susic {
-    int celkovy;
+    int celkovyPocetHub;
     SP * data;
 } SUSIC;
 
@@ -33,22 +34,58 @@ void * hubarF(void * arg) {
     HUBAR * dataH = static_cast<HUBAR *> (arg);
     printf("Hubar %d zacian fungovat\n", dataH->id);
     HUBA huba;
+    int tmp;
     for (int i = 0; i < dataH->pocetHub; ++i) {
-        //huba = (HUBA)rand() % 4;
-        //printf("Hubar %d zobral som %d hubu %d z auta!\n", dataH->id, (i+1), huba);
-        printf("Hubar %d zobral som %d hubu z auta!\n", dataH->id, (i+1));
+        tmp = 1*rand() % 100;
+        if (tmp <= 25) {
+            huba = BEDLA;
+        } else if (tmp <= 35) {
+            huba = DUBAK;
+        } else if (tmp <= 60) {
+            huba = KOZAK;
+        } else {
+            huba = MUCHOTRAVKA;
+        }
+        printf("Hubar %d zobral som %d hubu %d z auta!\n", dataH->id, (i+1), huba);
+        sleep(dataH->casPresu);
+        printf("Hubar %d zobral som %d hubu %d a som pred pultom\n", dataH->id, (i+1), huba);
+        pthread_mutex_lock(dataH->data->mut);
+        while (dataH->data->aktualPult >=dataH->data->maxPult) {
+            printf("Hubar %d zobral somje na pulte %d! Cakam!\n", dataH->id, dataH->data->aktualPult);
+            pthread_cond_wait(dataH->data->pridaj, dataH->data->mut);
+        }
+        printf("Hubar %d je na pulte %d! Vkladam hubu %d\n", dataH->id, dataH->data->aktualPult, );
+        dataH->data->pult[dataH->data->aktualPult++] = huba;
+        pthread_cond_signal();
+        pthread_mutex_unlock(dataH->data->mut);
+        printf("Hubar %d odlosil som hubu %d na pult! Idem do auta!\n", dataH->id, (i+1));
+        sleep(dataH->casPresu);
+        printf("Hubar %d som pri aute!\n", dataH->id);
     }
     printf("Hubar %d konci fungovat\n", dataH->id);
     return NULL;
 }
 
 void * susicF(void * arg) {
-    HUBAR * dataH = static_cast<HUBAR *> (arg);
+    SUSIC * dataS = static_cast<SUSIC *> (arg);
     printf("Susic Mada Sad zacina fungovat\n");
-    for (int i = 0; i < dataH->pocetHub; ++i) {
-        //
+    int pocetSpracovanychHub = 0;
+    while ( pocetSpracovanychHub < dataS->celkovyPocetHub) {
+        printf("Susic Mada Sad idem pozreit pult!\n");
+        pthread_mutex_lock(dataS->data->mut);
+        while (dataS->data->aktualPult <= 0) {
+            printf("Susic Mada Sad ma %d hub, cakam!\n", dataS->celkovyPocetHub);
+            pthread_cond_wait(dataS->data->odober, dataS->data->mut);
+        }
+        for (int i = 0; i < dataS->data->aktualPult; ++i) {
+            printf("Susic Mada Sad napulte %d na pozicii %d!", dataS->data->pult[i],i);
+        }
+        pocetSpracovanychHub += dataS->data->aktualPult;
+        pthread_cond_broadcast(dataS->data->pridaj);
+        dataS->data->aktualPult = 0;
+        pthread_mutex_unlock(dataS->data->mut);
     }
-    printf("Susic Mada Sad konci fungovat\n", dataH->id);
+    printf("Susic Mada Sad konci fungovat\n");
     pthread_exit(NULL);
 }
 
@@ -60,7 +97,7 @@ int main (int argc, char ** argv) {
         n = atoi(argv[1]);
     }
     int velkostPultu = 5;
-    int pult[velkostPultu];
+    HUBA pult[velkostPultu];
     pthread_mutex_t mut = PTHREAD_MUTEX_INITIALIZER;
     pthread_cond_t pridaj = PTHREAD_COND_INITIALIZER, odeber = PTHREAD_COND_INITIALIZER;
     SP spolData = { pult, velkostPultu,0,&mut, &odeber, &pridaj};
