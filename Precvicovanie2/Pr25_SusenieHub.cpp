@@ -1,35 +1,91 @@
 #include <iostream>
 #include <thread>
 #include <mutex>
+#include <condition_variable>
 #include <chrono>
-#include <unistd.h>
+#include <vector>
 
 using namespace std;
 
-void hubary(int id, int *zarobok) {
-    printf("Hubar %d začina zbieranie!\n", id);
-    this_thread::sleep_for(chrono::seconds(1 + rand()%4));
-    *zarobok = id;
-    printf("Hubar %d konči zbieranie!\n", id);
+enum huby { BEDLA = 0, DUBAK = 1, KOZAK = 2, MUCHOTRAVKA = 3 };
+
+#define POCET_HUBAROV 2
+#define POCET_HUB 5
+#define VELKOST_PULTU 5
+
+int getHubu() {
+    int random = 1 + rand() % 100;
+    if (random <= 25) {
+        return BEDLA;
+    } else if (random <= 35) {
+        return DUBAK;
+    } else if (random <= 60) {
+        return KOZAK;
+    } else {
+        return MUCHOTRAVKA;
+    }
+}
+
+int zarobenie(int huba) {
+    switch (huba) {
+        case huby::DUBAK:
+            return 20;
+        case huby::BEDLA:
+            return 10;
+        case huby::KOZAK:
+            return 5;
+        default:
+            return 0;
+    }
+}
+
+void hubary(int id, int *zarobok, vector<int> &pult, mutex *mut, condition_variable * pridaj, condition_variable * odober) {
+    printf("Hubar %d. začina zbieranie!\n", id);
+    *zarobok = 0;
+    for (int i = 0; i < POCET_HUB; ++i) {
+        int huba = getHubu();
+        //printf("Hubar %d zobral hubu %d z auta! \n", id, huba);
+        this_thread::sleep_for(chrono::milliseconds(1000 + rand() % 2000));
+        printf("Hubar %d. som pred pultom z hubov %d! Čakám! \n", id, huba);
+        unique_lock<mutex> lock(*mut);
+        while (pult.size() >= VELKOST_PULTU) {
+            printf("Hubar %d. na pulte je %d hub! Čakám! \n", id, pult.size());
+            pridaj->wait(lock);
+        }
+        printf("Hubar %d. vkladam hubu na pult! \n", id);
+        pult.push_back(huba);
+        *zarobok += zarobenie(huba);
+        odober->notify_one();
+        lock.unlock();
+        printf("Hubar %d. odlozil som hubu %d na pult! Idem k autu! \n", id, huba);
+        this_thread::sleep_for(chrono::milliseconds(1000 + rand() % 2000));
+        printf("Hubar %d. som pri aute\n", id);
+    }
+    printf("Hubar %d konči!\n", id);
 
 }
 
-void susicMada() {
+void susicMada(vector<int> &pult, mutex *mut, condition_variable * pridaj, condition_variable * odober) {
 
 }
 
 int main(int argc, char *argv[]) {
     srand(time(NULL));
-    int pocetHubarov = 5;
+    int pocetHubarov = POCET_HUBAROV;
     if (argc > 1) {
         pocetHubarov = stoi(argv[1]);
     }
     int zarobok[pocetHubarov];
+    vector<int> pult;
+    mutex mut;
+    condition_variable pridaj, odober;
+
+
     thread hubar[pocetHubarov];
     for (int i = 0; i < pocetHubarov; ++i) {
-        hubar[i] = thread(hubary, i, &zarobok[i]);
+        hubar[i] = thread(hubary, i, &zarobok[i], ref(pult), &mut, &pridaj, &odober);
     }
-    thread sucicka(susicMada);
+    thread sucicka(susicMada, ref(pult), &mut, &pridaj, &odober);
 
 
     printf("Čas sušenia nastal, hor sa na to!\n");
@@ -48,5 +104,11 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < pocetHubarov; ++i) {
         cout << "Hubar " << i << ". zarobil " << zarobok[i] << "€ a podiel "<< zarobok[i]*100/celkovyZarobok << "%" << endl;
     }
+
+    int i = 0;
+    for (auto item: pult) {
+        cout << i++ << ". " << item << endl;
+    }
+
     return 0;
 }
