@@ -13,7 +13,7 @@ set(CMAKE_CXX_STANDARD 11)
 #add_executable(Cvicenie_T08_01
 #        "Cvičenie t8/Uloha 1.c")
 
-add_executable(Cvicenie_T08_02
+#[[add_executable(Cvicenie_T08_02
         "Cvičenie t8/Uloha 2.cpp")
 
 add_executable(Cvicenie_T08_03
@@ -27,8 +27,12 @@ target_link_libraries(Cvicenie_T09_01 pthread)
 add_executable(Cvicenie_T09_02
         "Cvičenie t9/cvicenie T9 - 02.cpp")
 
-target_link_libraries(Cvicenie_T09_02 pthread)
+target_link_libraries(Cvicenie_T09_02 pthread)]]
 
 add_executable(Cvicenie_T10_01
         "Cvičenie t10/cvicenie T10 - 1.cpp")
 target_link_libraries(Cvicenie_T10_01 pthread)
+
+add_executable(Precvicovanie2-25
+        "Precvicovanie2/Pr25_SusenieHub.cpp")
+target_link_libraries(Precvicovanie2-25 pthread)
