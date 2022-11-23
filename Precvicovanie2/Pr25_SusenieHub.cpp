@@ -9,8 +9,8 @@ using namespace std;
 
 enum huby { BEDLA = 0, DUBAK = 1, KOZAK = 2, MUCHOTRAVKA = 3 };
 
-#define POCET_HUBAROV 2
-#define POCET_HUB 5
+#define POCET_HUBAROV 5
+#define POCET_HUB 15
 #define VELKOST_PULTU 5
 
 int getHubu() {
@@ -65,8 +65,33 @@ void hubary(int id, int *zarobok, vector<int> &pult, mutex *mut, condition_varia
 
 }
 
-void susicMada(vector<int> &pult, mutex *mut, condition_variable * pridaj, condition_variable * odober) {
+void susicMada(int maxPocetHub, vector<int> &pult, mutex *mut, condition_variable * pridaj, condition_variable * odober) {
+    printf("Susicka Mada Šád začina fungovať!\n");
+    int pocetSpracovanyHub = 0;
+    int akutualneSpracovane = 0;
+    while (pocetSpracovanyHub < maxPocetHub) {
+        printf("Susicka Mada Šád: idem sa pozried do pultu!\n");
+        unique_lock<mutex> lock( *mut);
+        while (pult.empty()) {
+            printf("Susicka Mada Šád: pult je prázdny, čakám!\n");
+            odober->wait(lock);
+        }
+        while (!pult.empty()) {
+            int huba = pult.back();
+            printf("Susicka Mada Šád: spracovávam hubu %d\n", huba);
+            pult.pop_back();
+            pocetSpracovanyHub++;
+            akutualneSpracovane++;
+        }
+        pridaj->notify_all();
+        lock.unlock();
+        printf("Susicka Mada Šád: ukladam %d hub do poličiek\n", akutualneSpracovane);
+        this_thread::sleep_for(chrono::seconds(akutualneSpracovane*2));
+        akutualneSpracovane = 0;
+        printf("Susicka Mada Šád: huby sú uložené\n");
+    }
 
+    printf("Susicka Mada Šád dosušila!\n");
 }
 
 int main(int argc, char *argv[]) {
@@ -85,7 +110,7 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < pocetHubarov; ++i) {
         hubar[i] = thread(hubary, i, &zarobok[i], ref(pult), &mut, &pridaj, &odober);
     }
-    thread sucicka(susicMada, ref(pult), &mut, &pridaj, &odober);
+    thread sucicka(susicMada, pocetHubarov * POCET_HUB,ref(pult), &mut, &pridaj, &odober);
 
 
     printf("Čas sušenia nastal, hor sa na to!\n");
@@ -104,11 +129,9 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < pocetHubarov; ++i) {
         cout << "Hubar " << i << ". zarobil " << zarobok[i] << "€ a podiel "<< zarobok[i]*100/celkovyZarobok << "%" << endl;
     }
-
-    int i = 0;
+/*  int i = 0;
     for (auto item: pult) {
         cout << i++ << ". " << item << endl;
-    }
-
+    }*/
     return 0;
 }
