@@ -54,9 +54,9 @@ void * hubarF(void * arg) {
             printf("Hubar %d zobral somje na pulte %d! Cakam!\n", dataH->id, dataH->data->aktualPult);
             pthread_cond_wait(dataH->data->pridaj, dataH->data->mut);
         }
-        printf("Hubar %d je na pulte %d! Vkladam hubu %d\n", dataH->id, dataH->data->aktualPult, );
+        printf("Hubar %d je na pulte %d! Vkladam hubu %d\n", dataH->id, dataH->data->aktualPult, huba);
         dataH->data->pult[dataH->data->aktualPult++] = huba;
-        pthread_cond_signal();
+        pthread_cond_signal(dataH->data->odober);
         pthread_mutex_unlock(dataH->data->mut);
         printf("Hubar %d odlosil som hubu %d na pult! Idem do auta!\n", dataH->id, (i+1));
         sleep(dataH->casPresu);
