@@ -40,3 +40,7 @@ target_link_libraries(Precvicovanie2-25 pthread)
 add_executable(Precvicovanie2-01
         "Precvicovanie2/Pr01_Prvocisla.cpp")
 target_link_libraries(Precvicovanie2-01 pthread)
+
+add_executable(Precvicovanie2-02
+        "Precvicovanie2/Pr02_KombinacneCisla.cpp")
+target_link_libraries(Precvicovanie2-02 pthread)
