@@ -56,7 +56,7 @@ void hubary(int id, int *zarobok, vector<int> &pult, mutex *mut, condition_varia
         pult.push_back(huba);
         *zarobok += zarobenie(huba);
         odober->notify_one();
-        lock.unlock();
+        //lock.unlock();
         printf("Hubar %d. odlozil som hubu %d na pult! Idem k autu! \n", id, huba);
         this_thread::sleep_for(chrono::milliseconds(1000 + rand() % 2000));
         printf("Hubar %d. som pri aute\n", id);
@@ -84,7 +84,7 @@ void susicMada(int maxPocetHub, vector<int> &pult, mutex *mut, condition_variabl
             akutualneSpracovane++;
         }
         pridaj->notify_all();
-        lock.unlock();
+        //lock.unlock();
         printf("Susicka Mada Šád: ukladam %d hub do poličiek\n", akutualneSpracovane);
         this_thread::sleep_for(chrono::seconds(akutualneSpracovane*2));
         akutualneSpracovane = 0;
