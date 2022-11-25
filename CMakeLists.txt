@@ -36,3 +36,7 @@ target_link_libraries(Cvicenie_T10_01 pthread)
 add_executable(Precvicovanie2-25
         "Precvicovanie2/Pr25_SusenieHub.cpp")
 target_link_libraries(Precvicovanie2-25 pthread)
+
+add_executable(Precvicovanie2-01
+        "Precvicovanie2/Pr01_Prvocisla.cpp")
+target_link_libraries(Precvicovanie2-01 pthread)
