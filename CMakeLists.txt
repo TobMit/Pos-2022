@@ -44,3 +44,11 @@ target_link_libraries(Precvicovanie2-01 pthread)
 add_executable(Precvicovanie2-02
         "Precvicovanie2/Pr02_KombinacneCisla.cpp")
 target_link_libraries(Precvicovanie2-02 pthread)
+
+add_executable(Precvicovanie2-vlastne
+        "Precvicovanie2/Pr_vlastne.cpp")
+target_link_libraries(Precvicovanie2-vlastne pthread)
+
+add_executable(Pisomka2-29-11
+        "Pisomka2/Tobias_Mitala_5ZYI33.cpp")
+target_link_libraries(Pisomka2-29-11 pthread)
