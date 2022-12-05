@@ -51,7 +51,7 @@ target_link_libraries(Precvicovanie2-vlastne pthread)
 
 add_executable(Pisomka2-29-11
         "Pisomka2/Tobias_Mitala_5ZYI33.cpp")
-target_link_libraries(Pisomka2-29-11 pthread)]]
+target_link_libraries(Pisomka2-29-11 pthread)
 
 add_executable(Cvicenie_T12_01-Server
         "Cvičenie t12/Server.cpp")
@@ -59,4 +59,16 @@ target_link_libraries(Cvicenie_T12_01-Server pthread)
 
 add_executable(Cvicenie_T12_01-Klient
         "Cvičenie t12/Klient.cpp")
-target_link_libraries(Cvicenie_T12_01-Klient pthread)
+target_link_libraries(Cvicenie_T12_01-Klient pthread) ]]
+
+add_executable(Cvicenie_T12_01-Synchroona-server
+        "Cvičenie t12/Sokety - synchrónna komunikácia/k_s_server.cpp"
+        "Cvičenie t12/Sokety - synchrónna komunikácia/k_s_definitions.h"
+        "Cvičenie t12/Sokety - synchrónna komunikácia/k_s_definitions.cpp")
+target_link_libraries(Cvicenie_T12_01-Synchroona-server pthread)
+
+add_executable(Cvicenie_T12_01-Synchroona-klient
+        "Cvičenie t12/Sokety - synchrónna komunikácia/k_s_client.cpp"
+        "Cvičenie t12/Sokety - synchrónna komunikácia/k_s_definitions.h"
+        "Cvičenie t12/Sokety - synchrónna komunikácia/k_s_definitions.cpp")
+target_link_libraries(Cvicenie_T12_01-Synchroona-klient pthread)
