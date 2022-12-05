@@ -27,7 +27,7 @@ target_link_libraries(Cvicenie_T09_01 pthread)
 add_executable(Cvicenie_T09_02
         "Cvičenie t9/cvicenie T9 - 02.cpp")
 
-target_link_libraries(Cvicenie_T09_02 pthread)]]
+target_link_libraries(Cvicenie_T09_02 pthread)
 
 add_executable(Cvicenie_T10_01
         "Cvičenie t10/cvicenie T10 - 1.cpp")
@@ -51,4 +51,12 @@ target_link_libraries(Precvicovanie2-vlastne pthread)
 
 add_executable(Pisomka2-29-11
         "Pisomka2/Tobias_Mitala_5ZYI33.cpp")
-target_link_libraries(Pisomka2-29-11 pthread)
+target_link_libraries(Pisomka2-29-11 pthread)]]
+
+add_executable(Cvicenie_T12_01-Server
+        "Cvičenie t12/Server.cpp")
+target_link_libraries(Cvicenie_T12_01-Server pthread)
+
+add_executable(Cvicenie_T12_01-Klient
+        "Cvičenie t12/Klient.cpp")
+target_link_libraries(Cvicenie_T12_01-Klient pthread)
