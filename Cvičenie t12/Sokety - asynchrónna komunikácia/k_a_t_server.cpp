@@ -44,6 +44,7 @@ int main(int argc, char* argv[]) {
     int clientSocket = accept(serverSocket, (struct sockaddr *)&clientAddress, &clientAddressLength);
 
     //uzavretie pasivneho socketu <unistd.h>
+    // todo toto treba upraviť ------------------------------------------------------------------------------------------------
     close(serverSocket);
     if (clientSocket < 0) {
         printError("Chyba - accept.");        
