@@ -61,14 +61,26 @@ add_executable(Cvicenie_T12_01-Klient
         "Cvičenie t12/Klient.cpp")
 target_link_libraries(Cvicenie_T12_01-Klient pthread) ]]
 
-add_executable(Cvicenie_T12_01-Synchroona-server
+add_executable(Cvicenie_T12_01-Synchronna-server
         "Cvičenie t12/Sokety - synchrónna komunikácia/k_s_server.cpp"
         "Cvičenie t12/Sokety - synchrónna komunikácia/k_s_definitions.h"
         "Cvičenie t12/Sokety - synchrónna komunikácia/k_s_definitions.cpp")
-target_link_libraries(Cvicenie_T12_01-Synchroona-server pthread)
+target_link_libraries(Cvicenie_T12_01-Synchronna-server pthread)
 
-add_executable(Cvicenie_T12_01-Synchroona-klient
+add_executable(Cvicenie_T12_01-Synchronna-klient
         "Cvičenie t12/Sokety - synchrónna komunikácia/k_s_client.cpp"
         "Cvičenie t12/Sokety - synchrónna komunikácia/k_s_definitions.h"
         "Cvičenie t12/Sokety - synchrónna komunikácia/k_s_definitions.cpp")
-target_link_libraries(Cvicenie_T12_01-Synchroona-klient pthread)
+target_link_libraries(Cvicenie_T12_01-Synchronna-klient pthread)
+
+add_executable(Cvicenie_T12_01-Asynchronna-server
+        "Cvičenie t12/Sokety - asynchrónna komunikácia/k_a_t_server.cpp"
+        "Cvičenie t12/Sokety - asynchrónna komunikácia/k_a_t_definitions.h"
+        "Cvičenie t12/Sokety - asynchrónna komunikácia/k_a_t_definitions.cpp")
+target_link_libraries(Cvicenie_T12_01-Asynchronna-server pthread)
+
+add_executable(Cvicenie_T12_01-Asynchronna-klient
+        "Cvičenie t12/Sokety - asynchrónna komunikácia/k_a_t_client.cpp"
+        "Cvičenie t12/Sokety - asynchrónna komunikácia/k_a_t_definitions.h"
+        "Cvičenie t12/Sokety - asynchrónna komunikácia/k_a_t_definitions.cpp")
+target_link_libraries(Cvicenie_T12_01-Asynchronna-klient pthread)
