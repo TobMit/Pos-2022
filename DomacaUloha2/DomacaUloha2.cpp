@@ -15,7 +15,7 @@ enum ovocie {JABLKO = 1, HRUSKA = 2, SLIVKA = 3};
 bool pokazene(ovocie pOvocie) {
     switch (pOvocie) {
         case JABLKO:
-            return rand() % 100 < 50 ? true : false;
+            return rand() % 100 < 30 ? true : false;
         case HRUSKA:
             return rand() % 100 < 60 ? true : false;
         default:
