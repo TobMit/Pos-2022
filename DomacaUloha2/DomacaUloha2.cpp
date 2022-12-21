@@ -67,7 +67,7 @@ void zberac(int id, mutex *mut, condition_variable *pridaj, condition_variable *
                 *celkovyPocet +=1;
                 aktualneNazberane++;
                 pocetOvocia++;
-                *pokazenePocet += pokazene(zozbieraneOvocie) ? 0 : 1;
+                *pokazenePocet += pokazene(zozbieraneOvocie) ? 1 : 0;
             }
             pridaj->notify_one();
             printf("Zberač %d: Dozbieral som!\n", id);
