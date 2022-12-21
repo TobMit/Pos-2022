@@ -84,3 +84,7 @@ add_executable(Cvicenie_T12_01-Asynchronna-klient
         "Cvičenie t12/Sokety - asynchrónna komunikácia/k_a_t_definitions.h"
         "Cvičenie t12/Sokety - asynchrónna komunikácia/k_a_t_definitions.cpp")
 target_link_libraries(Cvicenie_T12_01-Asynchronna-klient pthread)
+
+add_executable(DomacaUloha-2
+        "DomacaUloha2/DomacaUloha2.cpp")
+target_link_libraries(DomacaUloha-2 pthread)
